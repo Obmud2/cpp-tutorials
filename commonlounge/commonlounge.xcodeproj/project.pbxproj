@@ -97,6 +97,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FC1AD035259FE8D100DF39C5 /* covid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = covid.txt; sourceTree = "<group>"; };
+		FC1AD04A25A01F5D00DF39C5 /* keys2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = keys2.txt; sourceTree = "<group>"; };
 		FC6FDCEA2597F4BB00C9830E /* cpp_variables&userinput */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "cpp_variables&userinput"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC6FDCF52597FD3E00C9830E /* hotter_or_colder */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = hotter_or_colder; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC6FDD00259802AF00C9830E /* cows&bulls */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "cows&bulls"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -199,8 +201,10 @@
 		FCCEF1ED259D00B8006B207D /* breaking_cyphers */ = {
 			isa = PBXGroup;
 			children = (
+				FC1AD035259FE8D100DF39C5 /* covid.txt */,
 				FCCEF1F4259D0E93006B207D /* encrypted.txt */,
 				FCCEF1F3259D0E93006B207D /* keys.txt */,
+				FC1AD04A25A01F5D00DF39C5 /* keys2.txt */,
 				FCCEF1EE259D00B8006B207D /* main.cpp */,
 			);
 			path = breaking_cyphers;

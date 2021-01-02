@@ -1,4 +1,5 @@
-//
+//  Sudoku solver using recursive backtracking algorithm
+
 //  main.cpp
 //  sudokusolver
 //
@@ -11,6 +12,7 @@ using namespace std;
 const int UNASSIGNED = 0;
 const int N = 9;
 
+// Check if number placement is valid
 bool isValid(int grid[N][N], int row, int col, int number){
     for (int i{0}; i<N; i++){
         if (number == grid[i][col] || number == grid[row][i])
@@ -25,6 +27,7 @@ bool isValid(int grid[N][N], int row, int col, int number){
     return true;
 }
 
+// Find the next empty location
 bool findUnassignedLocation(int grid[N][N], int &row, int &col){
     for (int i{0}; i<N; i++){
         for (int j{0}; j<N; j++){
@@ -38,6 +41,7 @@ bool findUnassignedLocation(int grid[N][N], int &row, int &col){
     return false;
 }
 
+// Display the grid on cout
 void displayGrid(int grid[N][N]){
     for (int i{0}; i<N; i++){
         for (int j{0}; j<N; j++){
@@ -57,6 +61,7 @@ void displayGrid(int grid[N][N]){
     }
 }
 
+// Recursive solve with backtracking for next unassigned location
 bool solveSudoku(int grid[N][N]){
     int row{0}, col{0};
     

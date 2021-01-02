@@ -1,4 +1,4 @@
-//
+//  Minesweeper game with 3 levels of difficulty
 //  main.cpp
 //  minesweeper
 //

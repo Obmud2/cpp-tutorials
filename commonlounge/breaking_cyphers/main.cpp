@@ -1,4 +1,7 @@
-//
+//  Cipher solver for Caesar Cipher, Shift Cipher and Vigenère Cipher
+
+//  Input is restricted to all CAPS input file
+
 //  main.cpp
 //  breaking_cyphers
 //
@@ -10,6 +13,8 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <ctime>
+#include <tuple>
 using namespace std;
 
 string readText (string textFileName);
@@ -22,9 +27,12 @@ string solveText(string encryptedText, string keyText, int strLength);
 map<char, int> countLetters(string text, int strLength);
 float matchScore(string text, int strLength, map<char, float> letterFreq);
 string solveRawText(string rawText, string decipheredText, int strLength);
+bool sortbysec(const tuple<int,float,string> &a, const tuple<int,float,string> &b);
+bool sortbysecstring(const pair<string,double> &a, const pair<string,double> &b);
 
 void caesarCipher(string message, int shift);
-void vigenereCipher(string textFileName, string keysFileName);
+void vigenereCipher(string textFileName, string keysFileName, string letterFreqFileName);
+void vigenereCipherNoKeysBrute(string textFileName, string letterFreqFileName);
 
 int main() {
     
@@ -36,8 +44,12 @@ int main() {
         caesarCipher("DCANIWDHTLWDPIITBEIIWTPQHJGSRPCPRWXTKTIWTXBEDHHXQAT", i);
     }*/
     
-    // ------ Question 3 - Vigenère Cipher ------
-    vigenereCipher("encrypted.txt", "keys.txt");
+    // ------ Question 3 - Vigenère Cipher ------ (using a list of keys)
+    //vigenereCipher("encrypted.txt", "keys2.txt", "letterFreq.txt");
+    
+    // ------ Question 3a - Vigenère Cipher ----- (no keys, search by frequency analysis)
+    srand(static_cast<unsigned int>(time(0)));
+    vigenereCipherNoKeysBrute("encrypted.txt", "letterFreq.txt");
     
     return 0;
 }
@@ -49,11 +61,111 @@ void caesarCipher(string message, int shift){
     cout << message << " " << shift << endl;
 }
 
-void vigenereCipher(string textFileName, string keysFileName){
+void vigenereCipherNoKeysBrute(string textFileName, string letterFreqFileName){
+    string encryptedTextRaw {readText(textFileName)};
+    string encryptedText {removePunctuation(encryptedTextRaw)};
+    map<char, float> freqs{letterFreq(letterFreqFileName)};
+    
+    string decipheredText;
+    int strLength {static_cast<int>(encryptedText.size())};
+    float score;
+    vector<tuple<int, float, string>> keyLenScores {};
+    int nRandKeys {50};
+    int maxKeyLen {20};
+    int nToAverage {5};
+    string keys[nRandKeys];
+    
+    // Find best key lengths using frequency analysis of randomly generated keys
+    for (int i{0}; i<maxKeyLen; i++){
+        vector<pair<string, float>> scores;
+        double bestAverageScore{0};
+        for (auto key:keys){
+            for (int c{0}; c<i+1; c++){
+                key += static_cast<char>(65 + rand() % 26);
+            }
+            decipheredText = solveText(encryptedText, key, strLength); // key.substr(0, i+1)
+            scores.push_back(make_pair(key, matchScore(decipheredText, strLength, freqs)));
+        }
+        sort(scores.begin(), scores.end(), sortbysecstring);
+        for (int i{0}; i<nToAverage; i++){bestAverageScore += scores[i].second;}
+        keyLenScores.push_back(make_tuple(i+1, bestAverageScore / nToAverage, scores[0].first));
+        cout << get<2>(keyLenScores[i]) << " " << get<0>(keyLenScores[i]) << " " << get<1>(keyLenScores[i]) << endl;
+        score = 0;
+    }
+    sort(keyLenScores.begin() + 3, keyLenScores.end(), sortbysec);
+    for (int i{0}; i<5; i++){
+        cout << get<0>(keyLenScores[i]) << " " << get<1>(keyLenScores[i]) << endl;
+    }
+    
+    // Try changing one letter at a time from the best key
+    string bestKey {get<2>(keyLenScores[3])};
+    double bestScore {get<1>(keyLenScores[3])};
+    int counter{0};
+    while (true){
+        double newBestScore {bestScore};
+        for (int i{0}; i<bestKey.length(); i++){
+            string tempkey {bestKey};
+            for (char c{'A'}; c <= 'Z'; c++){
+                if (counter > 1 && i < bestKey.length() - 1){
+                    for (int j{i+1}; j<bestKey.length(); j++){
+                        tempkey = bestKey;
+                        tempkey[i] = c;
+                        for (char d{'A'}; d <= 'Z'; d++){
+                            tempkey[j] = d;
+                            decipheredText = solveText(encryptedText, tempkey, strLength);
+                            score = matchScore(decipheredText, strLength, freqs);
+                            if (score < newBestScore){
+                                newBestScore = score;
+                                bestKey[i] = tempkey[i];
+                                bestKey[j] = tempkey[j];
+                            }
+                            cout << tempkey << " " << score << c << d << endl;
+                        }
+                    }
+                }
+                else {
+                    tempkey[i] = c;
+                    decipheredText = solveText(encryptedText, tempkey, strLength);
+                    score = matchScore(decipheredText, strLength, freqs);
+                    if (score < newBestScore){
+                        newBestScore = score;
+                        bestKey[i] = tempkey[i];
+                    }
+                }
+                cout << tempkey << " " << score << endl;
+            }
+            cout << bestKey << " " << newBestScore << endl;
+        }
+        if (newBestScore < bestScore){
+            cout << "Improved" << endl;
+            bestScore = newBestScore;
+            counter = 0;
+        }
+        else if (bestKey.length() < maxKeyLen / 2){
+            bestKey += bestKey;
+            counter = 0;
+        }
+        else if (counter < 2){
+            cout << "Not improved" << endl;
+            counter++;
+        }
+        else {
+            break;
+        }
+    }
+    
+    cout << "decipher complete" << endl;
+    
+    //decipheredText = solveText(encryptedText, bestScore.first, strLength);
+    //score          = matchScore(decipheredText, strLength, freqs);
+    //cout << solveRawText(encryptedTextRaw, decipheredText, strLength);
+}
+
+void vigenereCipher(string textFileName, string keysFileName, string letterFreqFileName){
     string encryptedTextRaw {readText(textFileName)};
     string encryptedText {removePunctuation(encryptedTextRaw)};
     vector<string> keys{readKeys(keysFileName)};
-    map<char, float> freqs{letterFreq("letterFreq.txt")};
+    map<char, float> freqs{letterFreq(letterFreqFileName)};
     
     string decipheredText;
     int strLength {static_cast<int>(encryptedText.size())};
@@ -72,6 +184,14 @@ void vigenereCipher(string textFileName, string keysFileName){
     decipheredText = solveText(encryptedText, bestScore.first, strLength);
     score          = matchScore(decipheredText, strLength, freqs);
     cout << solveRawText(encryptedTextRaw, decipheredText, strLength);
+}
+
+bool sortbysecstring(const pair<string,double> &a, const pair<string,double> &b){
+    return (a.second < b.second);
+}
+
+bool sortbysec(const tuple<int,float,string> &a, const tuple<int,float,string> &b){
+    return (get<1>(a) < get<1>(b));
 }
 
 string solveText(string encryptedText, string key, int strLength){

@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/Jon/GitHub/cpp-tutorials/commonlounge/breaking_cyphers/covid.txt">
+   </FileRef>
+   <FileRef
       location = "self:">
    </FileRef>
 </Workspace>
