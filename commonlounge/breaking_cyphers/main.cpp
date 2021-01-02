@@ -26,13 +26,15 @@ vector<int> textToNum(string text);
 string solveText(string encryptedText, string keyText, int strLength);
 map<char, int> countLetters(string text, int strLength);
 float matchScore(string text, int strLength, map<char, float> letterFreq);
+double calcIC(string text, int strLength, map<char, float> letterFreq);
 string solveRawText(string rawText, string decipheredText, int strLength);
 bool sortbysec(const tuple<int,float,string> &a, const tuple<int,float,string> &b);
 bool sortbysecstring(const pair<string,double> &a, const pair<string,double> &b);
 
-void caesarCipher(string message, int shift);
+string caesarCipher(string message, int shift);
 void vigenereCipher(string textFileName, string keysFileName, string letterFreqFileName);
 void vigenereCipherNoKeysBrute(string textFileName, string letterFreqFileName);
+void vigenereCipherNoKeysEfficient(string textFileName, string letterFreqFileName);
 
 int main() {
     
@@ -48,17 +50,60 @@ int main() {
     //vigenereCipher("encrypted.txt", "keys2.txt", "letterFreq.txt");
     
     // ------ Question 3a - Vigenère Cipher ----- (no keys, search by frequency analysis)
-    srand(static_cast<unsigned int>(time(0)));
-    vigenereCipherNoKeysBrute("encrypted.txt", "letterFreq.txt");
+    //srand(static_cast<unsigned int>(time(0)));
+    //vigenereCipherNoKeysBrute("encrypted.txt", "letterFreq.txt");
+    
+    // ------ Question 3b - Vigenère Cipher ----- (no keys, improved algorithm)
+    vigenereCipherNoKeysEfficient("encrypted.txt", "letterFreq.txt");
     
     return 0;
 }
 
-void caesarCipher(string message, int shift){
+string caesarCipher(string message, int shift){
     for (int s{0}; s<message.length(); s++){
         message[s] = (message[s] - 13 - shift) % 26 + 65;
     }
-    cout << message << " " << shift << endl;
+    return message;
+}
+
+void vigenereCipherNoKeysEfficient(string textFileName, string letterFreqFileName){
+    string encryptedTextRaw {readText(textFileName)};
+    string encryptedText {removePunctuation(encryptedTextRaw)};
+    int strLen {static_cast<int>(encryptedText.length())};
+    map<char, float> freqs{letterFreq(letterFreqFileName)};
+    
+    for (int keyLen {2}; keyLen<20; keyLen++){
+        string key {""};
+        string decipheredText;
+        int reducedStrLen {0};
+        
+        for (int i{0}; i<keyLen; i++){
+            // Generate reduced text for shift cipher at each key character
+            string reducedEncryptedText {""};
+            for (int c{0}; c<strLen; c++){
+                if (c % keyLen == i){
+                    reducedEncryptedText += encryptedText[c];
+                }
+            }
+            reducedStrLen = static_cast<int>(reducedEncryptedText.length());
+            // Check frequency at each shift
+            double bestScore {999};
+            char bestKey = '\0';
+            for (int shift{0}; shift < 26; shift++){
+                decipheredText = caesarCipher(reducedEncryptedText, shift);
+                double score {matchScore(decipheredText, reducedStrLen, freqs)};
+                if (score < bestScore){
+                    bestScore = score;
+                    bestKey = 65 + shift;
+                }
+            }
+            key += bestKey;
+        }
+        // Check probability of identical adjacent characters (Friedman Test)
+        double indexCoincidence {calcIC(decipheredText, reducedStrLen, freqs)};
+        cout << keyLen << " " << key << " " << indexCoincidence << endl;
+    }
+    
 }
 
 void vigenereCipherNoKeysBrute(string textFileName, string letterFreqFileName){
@@ -68,7 +113,7 @@ void vigenereCipherNoKeysBrute(string textFileName, string letterFreqFileName){
     
     string decipheredText;
     int strLength {static_cast<int>(encryptedText.size())};
-    float score;
+    float score {0};
     vector<tuple<int, float, string>> keyLenScores {};
     int nRandKeys {50};
     int maxKeyLen {20};
@@ -83,7 +128,7 @@ void vigenereCipherNoKeysBrute(string textFileName, string letterFreqFileName){
             for (int c{0}; c<i+1; c++){
                 key += static_cast<char>(65 + rand() % 26);
             }
-            decipheredText = solveText(encryptedText, key, strLength); // key.substr(0, i+1)
+            decipheredText = solveText(encryptedText, key, strLength);
             scores.push_back(make_pair(key, matchScore(decipheredText, strLength, freqs)));
         }
         sort(scores.begin(), scores.end(), sortbysecstring);
@@ -153,12 +198,7 @@ void vigenereCipherNoKeysBrute(string textFileName, string letterFreqFileName){
             break;
         }
     }
-    
     cout << "decipher complete" << endl;
-    
-    //decipheredText = solveText(encryptedText, bestScore.first, strLength);
-    //score          = matchScore(decipheredText, strLength, freqs);
-    //cout << solveRawText(encryptedTextRaw, decipheredText, strLength);
 }
 
 void vigenereCipher(string textFileName, string keysFileName, string letterFreqFileName){
@@ -219,6 +259,14 @@ map<char, int> countLetters(string text, int strLength){
     for (int i{0}; i<26; i++){letterCount[i + 65] = 0;}
     for (auto s:text){letterCount[s]++;}
     return letterCount;
+}
+
+double calcIC(string text, int strLength, map<char, float> letterFreq){
+    double count{0};
+    for (int i{0}; i<strLength-1; i++){
+        if (text[i+1] == text[i]){count++;}
+    }
+    return count / strLength;
 }
 
 float matchScore(string text, int strLength, map<char, float> letterFreq){

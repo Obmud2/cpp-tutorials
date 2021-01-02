@@ -30,8 +30,8 @@
             filePath = "breaking_cyphers/main.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
             landmarkName = "matchScore(text, strLength, letterFreq)"
             landmarkType = "9">
          </BreakpointContent>
@@ -46,9 +46,25 @@
             filePath = "breaking_cyphers/main.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
+            startingLineNumber = "315"
+            endingLineNumber = "315"
             landmarkName = "readText(textFileName)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5350C507-0A3F-4344-928B-613D9F79E09B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "breaking_cyphers/main.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "vigenereCipherNoKeysEfficient(textFileName, letterFreqFileName)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
