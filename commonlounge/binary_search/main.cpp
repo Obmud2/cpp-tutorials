@@ -36,18 +36,18 @@ long binary_search3(const vector<int> &arr, const int element, const int arraySi
     
     auto low = arr.begin();
     auto high = arr.end();
-    int count{0};
+    //int count{0};
+    cout << distance(low,high) << " " << element << endl;
     
-    while (high > low){
-        count++;
-        auto mid = low + distance(low,high)/2;
-        //cout << *low << " " << *mid << " " << *high << endl;
+    while ((high - low)){
+        //count++;
+        auto mid = low + distance(low, high)/2;
+        cout << *low << " " << *mid << " " << *high << " Dist: "<< distance(arr.begin(), mid)<< endl;
         if (element == *mid){
-            auto result = distance(arr.begin(), mid);
-            return result;
+            return mid - arr.begin();
         }
         else if (element > *mid){
-            low = mid;
+            low = mid + 1;
         }
         else {
             high = mid;
@@ -67,7 +67,7 @@ int main(int argc, const char * argv[]) {
     int testCases;
     ifs >> testCases;
     
-    for (int t{0}; t<testCases; t++){
+    for (int t{0}; t<4; t++){
         int N, Q, num, query;
         int n{0};
         long result;
@@ -84,7 +84,7 @@ int main(int argc, const char * argv[]) {
         for (int q{0}; q<Q; q++){
             ifs >> query;
             result = binary_search3(array, query, arraySize);
-            if (q%1000==0){cout << q << endl;}
+            //if (q%1000==0){cout << q << endl;}
             ofs << result << " ";
         }
         ofs << endl;
@@ -92,18 +92,4 @@ int main(int argc, const char * argv[]) {
     
     ifs.close();
     ofs.close();
-    
-    /*
-    int array[2] {0, 7};
-    int query {0};
-    
-    int arraySize {sizeof(array)/sizeof(array[0])};
-    
-    //sort(begin(array), end(array));
-    
-    cout << binary_search2(array, query, 0, arraySize - 1) << endl;;
-    
-    
-    ofs.close();
-     */
 }
