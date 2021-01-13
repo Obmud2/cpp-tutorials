@@ -37,12 +37,12 @@ long binary_search3(const vector<int> &arr, const int element, const int arraySi
     auto low = arr.begin();
     auto high = arr.end();
     //int count{0};
-    cout << distance(low,high) << " " << element << endl;
+    //cout << distance(low,high) << " " << element << endl;
     
     while ((high - low)){
         //count++;
         auto mid = low + distance(low, high)/2;
-        cout << *low << " " << *mid << " " << *high << " Dist: "<< distance(arr.begin(), mid)<< endl;
+        //cout << *low << " " << *mid << " " << *high << " Dist: "<< distance(arr.begin(), mid)<< endl;
         if (element == *mid){
             return mid - arr.begin();
         }
@@ -67,7 +67,7 @@ int main(int argc, const char * argv[]) {
     int testCases;
     ifs >> testCases;
     
-    for (int t{0}; t<4; t++){
+    for (int t{0}; t<testCases; t++){
         int N, Q, num, query;
         int n{0};
         long result;
