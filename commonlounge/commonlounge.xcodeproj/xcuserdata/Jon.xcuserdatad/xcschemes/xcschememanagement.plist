@@ -39,6 +39,11 @@
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
+		<key>merge_sort.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
+		</dict>
 		<key>minesweeper.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -58,6 +63,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>FC1AD05725A3E94000DF39C5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FC1AD06C25B10C0800DF39C5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
