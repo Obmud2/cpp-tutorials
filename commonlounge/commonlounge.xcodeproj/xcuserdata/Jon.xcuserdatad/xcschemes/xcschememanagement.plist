@@ -49,6 +49,11 @@
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
+		<key>quick_sort.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
+		</dict>
 		<key>strings&amp;functions.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -68,6 +73,11 @@
 			<true/>
 		</dict>
 		<key>FC1AD06C25B10C0800DF39C5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FC1AD08325B38A8D00DF39C5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
