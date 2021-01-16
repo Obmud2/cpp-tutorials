@@ -8,6 +8,7 @@
 #include <iostream>
 #include <fstream>
 #include <chrono>
+#include <string>
 using namespace std;
 
 class Timer
@@ -36,35 +37,29 @@ void swap(int *a, int *b){
     *b = temp;
 }
 
-void merge(int *left, size_t leftSize, int *right, size_t rightSize){
+void merge(int *left, size_t leftSize, int *right, size_t rightSize, long *count){
     int ii{0}, jj{0};
     int result[leftSize + rightSize];
     
-    while ((ii < leftSize) && (jj < rightSize)){
-        if (left[ii] < right[jj]){
+    while ((ii < leftSize) || (jj < rightSize)){
+        if ((ii < leftSize) && ((jj == rightSize) || (left[ii] <= right[jj]))){
             result[ii + jj] = left[ii];
             ii++;
         }
         else {
             result[ii + jj] = right[jj];
             jj++;
+            (*count) += (leftSize - ii);
         }
     }
     
-    for (int k{ii}; k<leftSize; k++){
-        *(result+k+jj) = *(left+k);
-    }
-    for (int k{jj}; k<rightSize; k++){
-        *(result+ii+k) = *(right+k);
-    }
-    
     for (int i{0}; i<(leftSize + rightSize); i++){
-        *(left + i) = result[i];
+        left[i] = result[i];
     }
     
 }
 
-void merge_sort(int *arr, size_t arrSize){
+void merge_sort(int *arr, size_t arrSize, long *count){
     // Base case, array must have > 1 element
     if (arrSize < 2){
         return;
@@ -77,18 +72,18 @@ void merge_sort(int *arr, size_t arrSize){
     size_t rightSize{arrSize - leftSize};
     
     // Sort split arrays
-    merge_sort(left, leftSize);
-    merge_sort(right, rightSize);
+    merge_sort(left, leftSize, count);
+    merge_sort(right, rightSize, count);
     
     // Merge split arrays
-    merge(left, leftSize, right, rightSize);
+    merge(left, leftSize, right, rightSize, count);
 }
 
 int main(int argc, const char * argv[]) {
     
     ifstream ifs;
     ofstream ofs;
-    ifs.open("input");
+    ifs.open("inversion_input");
     ofs.open("output");
     
     int T;
@@ -101,19 +96,27 @@ int main(int argc, const char * argv[]) {
     for (int t{0}; t<T; t++){
         Timer time;
         ifs >> N;                       // Get number of elements N
-        cout << "N = " << N;
+        long count {0};
+        
+        string s {to_string(N)};
+        cout << "N = " << s;
+        
+        for (int i{8}; i>s.size(); i--){
+            cout << " ";
+        }
+        
         int *array { new int[N]{} };
         
         for (int n{0}; n<N; n++){
             ifs >> array[n];            // Read N elements
         }
-        merge_sort(array, N);           // Sort array
-        //sort(array, array + N);
+        merge_sort(array, N, &count);   // Sort array
+        
         for (int n{0}; n<N; n++){
             ofs << array[n] << " ";     // Write array to output
         }
         delete [] array;
-        cout << " Time: " << time.elapsed() << endl;;
+        cout << " Count: " << count << endl;;
         ofs << endl;
     }
     
