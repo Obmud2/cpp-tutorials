@@ -106,6 +106,4 @@ int main(int argc, const char * argv[]) {
     
     ifs.close();
     ofs.close();
-    
-    return 0;
 }
