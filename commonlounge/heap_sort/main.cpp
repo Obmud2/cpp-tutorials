@@ -15,7 +15,7 @@ class Heap {
     
     int find_child(int node){
         int child{(node+1) * 2 - 1};
-        if (arr[child] > arr[child+1]){
+        if (child < arr.size() && arr[child] > arr[child+1]){
             child++;
         }
         return (child < arr.size() && arr[node] > arr[child]) ? child : 0;
@@ -55,24 +55,51 @@ void heap_sort(int arr[], size_t arrSize){
     Heap h;
     for (int i{0}; i<arrSize; i++){
         h.insert(arr[i]);
-        h.print();
     }
     for (int i{0}; i<arrSize; i++){
         arr[i] = h.pop();
-        h.print();
     }
 }
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    
-    int V[] {3,4,1,12,15,7,2,0,44,35,6};
-    size_t N {sizeof(V) / sizeof(*V)};
-    
-    heap_sort(V, N);
-    
-    for (int v:V){
-        cout << v << " ";
+void get_arr(ifstream& i, int arr[], size_t arrSize){
+    for (int n{0}; n<arrSize; n++){
+        i >> arr[n];
+    }
+}
+void output_arr(ofstream& o, int arr[], size_t arrSize){
+    for (int n{0}; n<arrSize; n++){
+        o << arr[n] << " ";
+    }
+    o << endl;
+}
+
+void print_arr(int arr[], size_t arrSize){
+    for (int n{0}; n<arrSize; n++){
+        cout << arr[n] << " ";
     }
     cout << endl;
+}
+
+int main(int argc, const char * argv[]) {
+    ifstream ifs;
+    ofstream ofs;
+    ifs.open("input");
+    ofs.open("output");
+    
+    int T;
+    ifs >> T;
+    
+    for (int t{0}; t<T; t++){
+        int N;
+        ifs >> N;
+        auto *arr ( new int[N]{} );
+        
+        get_arr(ifs, arr, N);
+        
+        heap_sort(arr, N);
+        
+        output_arr(ofs, arr, N);
+        //print_arr(arr, N);
+        cout << "N = " << N << endl;
+    }
 }
