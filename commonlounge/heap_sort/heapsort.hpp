@@ -12,14 +12,14 @@
 #include <vector>
 
 class Heap {
-    std::vector<int> arr;
+    std::vector<std::pair<int, int>> arr;
     int find_child(int node);
 public:
-    void insert(int n);
-    int pop();
+    void insert(int n, int val);
+    std::pair<int, int> pop();
     void print();
 };
 
-void heap_sort(int arr[], size_t arrSize);
+// void heap_sort(int arr[], size_t arrSize);
 
 #endif /* heapsort_hpp */

@@ -13,25 +13,25 @@ using namespace std;
 
 int Heap::find_child(int node){
     int child{(node+1) * 2 - 1};
-    if (child < arr.size() && arr[child] > arr[child+1]){
+    if (child < arr.size() && arr[child].second > arr[child+1].second){
         child++;
     }
-    return (child < arr.size() && arr[node] > arr[child]) ? child : 0;
+    return (child < arr.size() && arr[node].second > arr[child].second) ? child : 0;
 }
     
-void Heap::insert(int n){
-    arr.push_back(n);
+void Heap::insert(int n, int val){
+    arr.push_back({n, val});
     int node   {static_cast<int>(arr.size() - 1)};
     int parent {(node + 1) / 2 - 1};
-    while (parent >= 0 && arr[node] < arr[parent]){
+    while (parent >= 0 && arr[node].second < arr[parent].second){
         swap(arr[node], arr[parent]);
         node = parent;
         parent = (node + 1) / 2 - 1;
     }
 }
 
-int Heap::pop(){
-    int result {arr[0]};
+pair<int, int> Heap::pop(){
+    pair<int, int> result {arr[0]};
     arr[0] = arr.back();
     arr.pop_back();
     int node{0};
@@ -44,14 +44,14 @@ int Heap::pop(){
 }
 
 void Heap::print(){
-    for (int a:arr){
-        cout << a << " ";
+    for (pair<int, int> a:arr){
+        cout << "(" << a.first << ")" << a.second << " ";
     }
     cout << endl;
 }
 
 
-
+/*
 void heap_sort(int arr[], size_t arrSize){
     Heap h;
     for (int i{0}; i<arrSize; i++){
@@ -61,3 +61,4 @@ void heap_sort(int arr[], size_t arrSize){
         arr[i] = h.pop();
     }
 }
+*/
