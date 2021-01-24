@@ -15,26 +15,17 @@ void tile_solve(int n[], int result[], int T); // Calculate possible tile combin
 |__|  |_____|
 
 */
-long tile(int n, long ans[], long ans_g[]); //Helper function:   combinations of tiles for n x 2 matrix.
-long tile_g(int n, long ans[], long ans_g[]); //Helper function: combinations of tiles for n x 2 matrix with additional block.
+long long tile(int n, long long ans[], long long ans_g[]); //Helper function:   combinations of tiles for n x 2 matrix.
+long long tile_g(int n, long long ans[], long long ans_g[]); //Helper function: combinations of tiles for n x 2 matrix with additional block.
 
  
 int main() {
-    int input[] {1, 2, 3, 5};
-    int result[4];
+    int T {10};
+    int input[] {3, 10, 23, 60, 269, 832, 1597, 5189, 25987, 76401};
+    int result[T];
     
-    tile_solve(input, result, 4);
-    
-    /*
-    for (auto i:result){
-        cout << i << " ";
-    }
-    cout << endl;
-     */
+    tile_solve(input, result, T);
 }
-
-
-
 
 
 void tile_solve(int n[], int result[], int T){
@@ -43,8 +34,9 @@ void tile_solve(int n[], int result[], int T){
         N = (n[t] > N) ? n[t] : N;
     }
     
-    long *ans { new long[N]{} };
-    long *ans_g { new long[N]{} };
+    auto *ans { new long long[N]{} };
+    auto *ans_g { new long long[N]{} };
+    //long long ans[N], ans_g[N];
     
     for (int i{0}; i<N; i++){
         ans[i] = -1;
@@ -52,7 +44,7 @@ void tile_solve(int n[], int result[], int T){
     }
     
     for (int t{0}; t<T; t++){
-        result[t] = static_cast<int>(tile(n[t], ans, ans_g) % 100003);
+        result[t] = static_cast<int>(tile(n[t], ans, ans_g) % 1000003);
         cout << "n = " << n[t] << ": " << result[t] << endl;
     }
     
@@ -60,21 +52,20 @@ void tile_solve(int n[], int result[], int T){
     delete [] ans_g;
 }
 
-long tile(int n, long ans[], long ans_g[]){
+long long tile(int n, long long ans[], long long ans_g[]){
     if (ans[n-1] != -1){ return ans[n-1]; }
     
     if (n == 1){ return ans[n-1] = 1; }
     if (n == 2){ return ans[n-1] = 2; }
-    if (n == 3){ return ans[n-1] = 5; }
     
-    return ans[n-1] = tile(n-1, ans, ans_g) + tile(n-2, ans, ans_g) + 2*tile_g(n-2, ans, ans_g);
+    return ans[n-1] = (tile(n-1, ans, ans_g) + tile(n-2, ans, ans_g) + 2*tile_g(n-2, ans, ans_g)) % 1000003;
 }
 
-long tile_g(int n, long ans[], long ans_g[]){
+long long tile_g(int n, long long ans[], long long ans_g[]){
     if (ans_g[n-1] != -1){ return ans_g[n-1]; }
     
     if (n == 1){ return ans_g[n-1] = 1; }
     if (n == 2){ return ans_g[n-1] = 2; }
     
-    return ans_g[n-1] = tile(n-1, ans, ans_g) + tile_g(n-1, ans, ans_g);
+    return ans_g[n-1] = (tile(n-1, ans, ans_g) + tile_g(n-1, ans, ans_g)) % 1000003;
 }
