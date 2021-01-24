@@ -67,8 +67,27 @@ void print_vec_vec(vector<deque<int>> vec){
     }
 }
 
-void k_sort_import(){
-    
+vector<deque<int>> read_vec(ifstream &ifs, int K, int& len_vec){
+    vector<deque<int>> vec;
+    for (int k{0}; k<K; k++){
+        int N, input;
+        ifs >> N;
+        deque<int> temp_vec;
+        for (int n{0}; n<N; n++){
+            ifs >> input;
+            temp_vec.push_back(input);
+            len_vec++;
+        }
+        vec.push_back(temp_vec);
+    }
+    return vec;
+}
+
+void write_output (ofstream &ofs, vector<int> vec){
+    for (int v:vec){
+        ofs << v << " ";
+    }
+    ofs << endl;
 }
 
 int main(){
@@ -85,33 +104,22 @@ int main(){
     cout << T << endl;
     
     for (int t{0}; t<T; t++){
+        // Read input from ifs
         int K;
         int len_vec {0};
         ifs >> K;
+        vector<deque<int>> vec {read_vec(ifs, K, len_vec)};
         
-        vector<deque<int>> vec;
-        vector<int> output_vec;
-        for (int k{0}; k<K; k++){
-            int N, input;
-            ifs >> N;
-            deque<int> temp_vec;
-            for (int n{0}; n<N; n++){
-                ifs >> input;
-                temp_vec.push_back(input);
-                len_vec++;
-            }
-            vec.push_back(temp_vec);
-        }
-        
-        //print_vec_vec(vec);
-        
+        // Initiate heap of length K
         Heap h;
         for (int k{0}; k<K; k++){
             h.insert(k, vec[k][0]);
             vec[k].pop_front();
         }
-        //h.print();
         
+        vector<int> output_vec;
+        
+        // Pop and replace item in heap for each k until all inputs are empty
         pair<int, int> pop_vec;
         while (output_vec.size() < len_vec){
             pop_vec = h.pop();
@@ -120,14 +128,11 @@ int main(){
                 h.insert(pop_vec.first, vec[pop_vec.first][0]);
                 vec[pop_vec.first].pop_front();
             }
-            //h.print();
         }
-        for (int o:output_vec){
-            ofs << o << " ";
-        }
-        ofs << endl;
+        write_output(ofs, output_vec);
         cout << t << endl;
     }
     
-    
+    ifs.close();
+    ofs.close();
 }
