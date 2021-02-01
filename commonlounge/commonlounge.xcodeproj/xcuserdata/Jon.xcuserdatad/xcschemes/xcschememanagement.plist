@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>breadth_search.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>17</integer>
+		</dict>
 		<key>breaking_cyphers.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -53,6 +58,11 @@
 		<dict>
 			<key>orderHint</key>
 			<integer>10</integer>
+		</dict>
+		<key>longest_substring_problem.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>16</integer>
 		</dict>
 		<key>merge_sort.xcscheme_^#shared#^_</key>
 		<dict>
@@ -103,6 +113,11 @@
 			<true/>
 		</dict>
 		<key>FC1AD0E725B4EDDD00DF39C5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FC1AD1FE25C356AD00DF39C5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
