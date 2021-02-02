@@ -48,6 +48,7 @@ void breadth_search (vector<pair<int, int>> edges, int m, int n, ofstream &ofs){
         }
     }
     
+    // Write distances to output
     for (int v{0}; v < n; v++){
         if (vis[v] == 0){
             ofs << "INF ";
@@ -82,6 +83,7 @@ int main() {
             edges.push_back(temp_pair);
         }
         ifs.ignore(100, '\n');
+        
         
         breadth_search(edges, m, n, ofs);
     }
