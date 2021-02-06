@@ -57,6 +57,7 @@ void djikstra_algo(vector<tuple<int, int, int>> edges, const int m, const int n,
         }
     }
     
+    // write output to ofs
     for (auto d:dist){
         ofs << d << " ";
     }
@@ -87,30 +88,12 @@ int main(int argc, const char * argv[]) {
         }
         ifs.ignore(100, '\n');
         
+        // apply djikstra's shortest path algorithm
         djikstra_algo(edges, m, n, ofs);
     }
     
     ifs.close();
     ofs.close();
-    
-    /*
-    int n {6};
-    
-    vector<tuple<int, int, int>> edges {
-        make_tuple(0, 1, 7),
-        make_tuple(0, 2, 4),
-        make_tuple(1, 3, 1),
-        make_tuple(2, 3, 1),
-        make_tuple(2, 4, 8),
-        make_tuple(3, 4, 2),
-        make_tuple(3, 5, 4),
-        make_tuple(4, 5, 3)
-    };
-    
-    int m {static_cast<int>(edges.size())};
-    
-    djikstra_algo(edges, m, n, ofs);
-     */
     
     return 0;
 }
