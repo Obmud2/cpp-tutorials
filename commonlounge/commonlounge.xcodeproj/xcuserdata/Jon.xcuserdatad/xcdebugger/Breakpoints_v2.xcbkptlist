@@ -256,7 +256,103 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "45"
             endingLineNumber = "45"
-            landmarkName = "prims_algorithm(edges, n)"
+            landmarkName = "prims_algorithm(edges, n, ofs)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0E4613A6-7396-454D-B50A-12FA3AA9B4A3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "graphing_algos/prims_algorithm/main.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "prims_algorithm(edges, n, ofs)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AC3BB4E1-8128-43D2-B04E-ECD3D420F58B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "graphing_algos/kruskals_algorithm/main.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "kruskals_algorithm(edges, n, ofs)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "AC3BB4E1-8128-43D2-B04E-ECD3D420F58B - f0934e40d0358095"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "kruskals_algorithm(std::__1::vector&lt;std::__1::tuple&lt;int, int, int&gt;, std::__1::allocator&lt;std::__1::tuple&lt;int, int, int&gt; &gt; &gt;, int, std::__1::basic_ofstream&lt;char, std::__1::char_traits&lt;char&gt; &gt;&amp;)"
+                  moduleName = "kruskals_algorithm"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Jon/GitHub/cpp-tutorials/commonlounge/graphing_algos/kruskals_algorithm/main.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "82"
+                  endingLineNumber = "82"
+                  offsetFromSymbolStart = "858">
+               </Location>
+               <Location
+                  uuid = "AC3BB4E1-8128-43D2-B04E-ECD3D420F58B - f0934e40d0358095"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "kruskals_algorithm(std::__1::vector&lt;std::__1::tuple&lt;int, int, int&gt;, std::__1::allocator&lt;std::__1::tuple&lt;int, int, int&gt; &gt; &gt;, int, std::__1::basic_ofstream&lt;char, std::__1::char_traits&lt;char&gt; &gt;&amp;)"
+                  moduleName = "kruskals_algorithm"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Jon/GitHub/cpp-tutorials/commonlounge/graphing_algos/kruskals_algorithm/main.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "82"
+                  endingLineNumber = "82"
+                  offsetFromSymbolStart = "942">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DA639371-413C-4BAB-8F12-23CEF1D21D78"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "graphing_algos/kruskals_algorithm/main.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "kruskals_algorithm(edges, n, ofs)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2C4E7113-9D98-4D62-A6A8-00F60C75A2BB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "graphing_algos/kruskals_algorithm/main.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "kruskals_algorithm(edges, n, ofs)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
